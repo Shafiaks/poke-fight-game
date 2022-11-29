@@ -1,19 +1,20 @@
 
 import './App.css';
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+import PokemonList from './components/PokemonList';
+import SinglePokemon from './components/SinglePokemon';
+import SuperDetailedView from './components/SuperDetailedView';
+
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <div className='wrapper'>
+      <div className='router-wrapper'>
         <Routes>
-          <Route path='/' element={<PokemonList />} />
-          <Route path='/pokemon/:id /*' element={<SinglePokemon />}>
-            <Route path=':info' element={<SuperDetailedView />} />
-          </Route>
+          <Route path='/' element={<PokemonList />} ></Route>
+          <Route path='/pokemon/:id/' element={<SinglePokemon />}></Route>
+          <Route path='/pokemon/:id/:info' element={<SuperDetailedView />} ></Route>
         </Routes>
       </div>
     </div>
