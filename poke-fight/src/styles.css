@@ -1,4 +1,19 @@
-.poke-Names{
-    margin:1% 1%;
-    font-size: large;
+.name-list{
+    margin: 7% 0;
 }
+.poke-Name{
+    margin:1% 5%;
+    font-size: larger;
+    color:rgb(25, 26, 26);
+    
+}
+  .read-more-link{
+    color: rgb(111, 109, 113);
+    text-decoration: underline;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+  .extra-content{
+    color: rgb(25, 26, 26);
+    font-weight: 500;
+  }
