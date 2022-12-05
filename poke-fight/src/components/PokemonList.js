@@ -14,16 +14,17 @@ function PokemonList({DataJson}) {
 
     const linkName = readMore ? 'Show Less << ' : 'Show More >> ';
 
-    // const imgPrefix = ()=>{
-    //     if(selectedPokemon.id<10 ) imgNum='00'+selectedPokemon.id;
-    //     else if(selectedPokemon.id>=10 && selectedPokemon.id < 100) imgNum='0'+selectedPokemon.id;
-    //     else imgNum=selectedPokemon.id;
-    //      imgUrl='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/'+imgNum+'.png'
-    //     console.log("url is  ",imgUrl);
-    //  };
+     let imgNum,imgUrl;
+    const handleImgUrl = (id)=>{
+        if(id<10 ) imgNum='00'+id;
+        else if(id>=10 && id < 100) imgNum='0'+id;
+        else imgNum=id;
+        imgUrl='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/'+imgNum+'.png'
+        return imgUrl;
+     };
    
-        //console.log(DataJson[0].base,DataJson.length);
-    
+       // console.log(DataJson[0].base,DataJson.length);
+   
       
     return (
         <div >
@@ -32,7 +33,7 @@ function PokemonList({DataJson}) {
             {DataJson.map(element => (
                 <div className='name-list' key={element.id}>
                     <div>
-                        <img className='poke-img' src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png`} alt={element.name.english} />
+                        <img className='poke-img' src={handleImgUrl(element.id)} alt={element.name.english} />
                         <div className='poke-Name' >{element.name.english}</div>
                         <NavLink to={`/pokemon/${element.id}`} onClick={() => {setReadMore(prev => !prev)}}><span>{linkName}</span>
                         </NavLink>
