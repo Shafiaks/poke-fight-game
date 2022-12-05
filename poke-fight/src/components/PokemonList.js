@@ -1,35 +1,39 @@
 import React from 'react';
-import { useState } from 'react';
-import DataJson from '../DataJson.json'
+import { useState,useEffect } from 'react';
+import DataJson from '../DataJson.json';
 import '../styles.css'
+import { NavLink } from 'react-router-dom';
+import SinglePokemon from './SinglePokemon';
+import axios from 'axios';
 
-function PokemonList() {
+function PokemonList({DataJson}) {
+    console.log(DataJson)
+
+
     const [readMore, setReadMore] = useState(false);
-    const extraContent = <div>
-        <p className="extra-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, consectetur nequeab
-            porro quasi culpa nulla rerum quis minus voluptatibus sed hic ad quo sint, libero
-            commodi officia aliquam! Maxime.
-        </p>
-    </div>
-    const linkName = readMore ? 'Read Less << ' : 'Read More >> '
-    //   {
-    //     console.log(DataJson[0].name.english,DataJson.length);
-    //   }
+
+    const linkName = readMore ? 'Show Less << ' : 'Show More >> ';
+   
+        //console.log(DataJson[0].base,DataJson.length);
+    
+      
     return (
-        <div>
+        <div >
             <h2>Pokemon List</h2>
+            <div className='grid-wrapper'>
             {DataJson.map(element => (
                 <div className='name-list' key={element.id}>
-                    <p>
-                        <span className='poke-Name'>{element.name.english}</span>
-                        <a className="read-more-link" onClick={() => { setReadMore(!readMore) }}><span>{linkName}</span>
-                        </a>
-                        {readMore && extraContent}
-                    </p>
+                    <div>
+                        <img className='poke-img' src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png`} alt={element.name.english} />
+                        <div className='poke-Name' >{element.name.english}</div>
+                        <NavLink to={`/pokemon/${element.id}`} onClick={() => {setReadMore(prev => !prev)}}><span>{linkName}</span>
+                        </NavLink>
+                        {readMore && <SinglePokemon pokemon={element}/> }
+                    </div>
                 </div>
             ))
             }
+             </div>
         </div>
     )
 }
