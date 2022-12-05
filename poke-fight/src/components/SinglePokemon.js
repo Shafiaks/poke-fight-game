@@ -21,11 +21,12 @@ function SinglePokemon({ DataJson }) {
     // array.find() -> takes a function and finds the first item in that array that matches
     const selectedPokemon = DataJson.find(element => element.id == id)
     console.log("selectedPokemon  ", selectedPokemon);
+    
      const imgPrefix = ()=>{
         if(selectedPokemon.id<10 ) imgNum='00'+selectedPokemon.id;
         else if(selectedPokemon.id>=10 && selectedPokemon.id < 100) imgNum='0'+selectedPokemon.id;
         else imgNum=selectedPokemon.id;
-         imgUrl='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/'+imgNum+'.png'
+        imgUrl='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/'+imgNum+'.png';
         console.log("url is  ",imgUrl);
      };
 
@@ -40,10 +41,11 @@ function SinglePokemon({ DataJson }) {
                     <CardMedia
                         component="img"
                         width="300"
-                        image={imgUrl}
                         //image={imgUrl}
+                        image={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgNum}.png`} 
                         alt="pokemon"
                     />
+                   
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             {selectedPokemon.name.english}
