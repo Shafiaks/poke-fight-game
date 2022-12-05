@@ -14,8 +14,8 @@ function SinglePokemon({ DataJson }) {
     const [showBase, setShowBase] = useState(false);
     const [showType, setShowType] = useState(false);
 
-    const ShowBaseMore = showBase ? 'Show Less << ' : 'Show More  >> ';
-    const ShowTypeMore = showType ? 'Show Less << ' : 'Show More  >> ';
+    const ShowBaseMore = showBase ? ' << ' : '>> ';
+    const ShowTypeMore = showType ? ' << ' : '  >> ';
     let imgNum,imgUrl;
 
     // array.find() -> takes a function and finds the first item in that array that matches
