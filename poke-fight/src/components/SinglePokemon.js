@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -16,7 +16,7 @@ function SinglePokemon({ DataJson }) {
 
     const ShowBaseMore = showBase ? 'Show Less << ' : 'Show More  >> ';
     const ShowTypeMore = showType ? 'Show Less << ' : 'Show More  >> ';
-    let imgNum;
+    let imgNum,imgUrl;
 
     // array.find() -> takes a function and finds the first item in that array that matches
     const selectedPokemon = DataJson.find(element => element.id == id)
@@ -25,7 +25,13 @@ function SinglePokemon({ DataJson }) {
         if(selectedPokemon.id<10 ) imgNum='00'+selectedPokemon.id;
         else if(selectedPokemon.id>=10 && selectedPokemon.id < 100) imgNum='0'+selectedPokemon.id;
         else imgNum=selectedPokemon.id;
+         imgUrl='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/'+imgNum+'.png'
+        console.log("url is  ",imgUrl);
      };
+
+      useEffect(()=>{
+        imgPrefix();
+      },[])
 
     return (
         <div className='card-component'>
@@ -34,7 +40,8 @@ function SinglePokemon({ DataJson }) {
                     <CardMedia
                         component="img"
                         width="300"
-                        image={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${imgNum}+id.png`}
+                        image={imgUrl}
+                        //image={imgUrl}
                         alt="pokemon"
                     />
                     <CardContent>
@@ -42,24 +49,17 @@ function SinglePokemon({ DataJson }) {
                             {selectedPokemon.name.english}
                         </Typography>
 
-                        <Typography variant="body2" color="text.secondary" >
-                            <h5><NavLink to={`/pokemon/${id}/:info`} onclick={() => { setShowBase(prev => !prev) }} > {ShowBaseMore} </NavLink> </h5>
-                            <ul>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small" onClick={() =>{setShowBase(prev => !prev)}}> Base :  {ShowBaseMore} </Button>
+                          <ul>
                                 { showBase &&
                                 Object.keys(selectedPokemon.base).map(key => <li> {key + " : " + selectedPokemon.base[key]}</li>) 
                               }
                             </ul>
-                        </Typography>
-
-                        {/* <Typography variant="body2" color="text.secondary" >
-                            <h5><NavLink onclick={() => { setShowType(prev => !prev) }} to={`/pokemon/${selectedPokemon.id}`}>TYPE :  {ShowTypeMore}</NavLink> </h5>
-                            <ul>
-                                {showType ? Object.keys(selectedPokemon.type).map(key => <li>{selectedPokemon.type[key]}</li>) : "Loading..."}
-                            </ul>
-                        </Typography> */}
-                    </CardContent>
+                    </CardActions>
                     <CardActions>
-                        <Button size="small" onclick={() =>{setShowType(prev => !prev) }}> TYPE :  {ShowTypeMore} </Button>
+                        <Button size="small" onClick={() =>{setShowType(prev => !prev)}}> TYPE :  {ShowTypeMore} </Button>
                           <ul>
                                {
                                showType && Object.keys(selectedPokemon.type).map(key => <li>{selectedPokemon.type[key]}</li>)
